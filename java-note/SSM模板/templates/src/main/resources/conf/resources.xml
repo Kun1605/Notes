@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- MyBatis multi-db vendor support -->
+    <bean id="databaseIdProvider" class="org.apache.ibatis.mapping.VendorDatabaseIdProvider">
+        <property name="properties">
+            <props>
+                <prop key="MySQL">mysql</prop>
+                <prop key="Oracle">oracle</prop>
+                <prop key="SQL Server">sqlserver</prop>
+                <prop key="DB2">db2</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 管理平台数据源 -->
+    <import resource="mobile/mobile-resources.xml"/>
+
+
+</beans>

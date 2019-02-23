@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.ModTimeMapper">
+  <resultMap id="BaseResultMap" type="com.test.model.ModTime">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="shour" jdbcType="TINYINT" property="shour" />
+    <result column="sminute" jdbcType="TINYINT" property="sminute" />
+    <result column="ehour" jdbcType="TINYINT" property="ehour" />
+    <result column="eminute" jdbcType="TINYINT" property="eminute" />
+  </resultMap>
+  <sql id="tableName">mod_time</sql>
+
+  <sql id="columns_no_id">
+    shour, sminute, ehour, eminute
+  </sql>
+
+  <sql id="columns">
+    id, <include refid="columns_no_id"/>
+  </sql>
+
+  <sql id="dynamicWhere">
+    <where>
+      <if test="shour not in {null, ''}">AND a.shour = #{shour}</if>
+      <if test="sminute not in {null, ''}">AND a.sminute = #{sminute}</if>
+      <if test="ehour not in {null, ''}">AND a.ehour = #{ehour}</if>
+      <if test="eminute not in {null, ''}">AND a.eminute = #{eminute}</if>
+    </where>
+  </sql>
+
+  <select id="get" resultType="ModTime" parameterType="long">
+    SELECT <include refid="columns"/>
+    FROM <include refid="tableName"/>
+    WHERE id = #{id}
+  </select>
+
+  <select id="getByDynamicWhere" resultType="ModTime">
+    SELECT <include refid="columns"/>
+    FROM <include refid="tableName"/>
+    <include refid="dynamicWhere"/>
+  </select>
+
+  <select id="getCount" resultType="int">
+    SELECT COUNT(1)
+    FROM <include refid="tableName"/>
+    <include refid="dynamicWhere"/>
+  </select>
+
+  <select id="getList" resultType="ModTime">
+    SELECT <include refid="columns"/>
+    FROM <include refid="tableName"/>
+    <include refid="dynamicWhere"/>
+    <if test="orderField != null">
+      ORDER BY ${orderField} <if test="orderSeq != null">${orderSeq}</if>
+    </if>
+  </select>
+
+  <insert id="insert" parameterType="ModTime" useGeneratedKeys="true"
+          keyProperty="id" >
+    INSERT IGNORE INTO <include refid="tableName"/>
+    (<include refid="columns_no_id"/>)
+    VALUES
+    #{msg}, #{pid},#{status}, #{imgurl})
+  </insert>
+
+  <update id="update" parameterType="ModTime">
+    UPDATE <include refid="tableName"/>
+    <set>
+      <if test="msg not in {null, ''}">AND a.msg = #{msg}</if>
+      <if test="pid != null">AND a.pid = #{pid}</if>
+      <if test="status != null">AND a.status = #{status}</if>
+      <if test="imgurl not in {null, ''}">AND a.imgurl = #{imgurl}</if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="long">
+    DELETE FROM <include refid="tableName"/>
+    WHERE id = #{id}
+  </delete>
+
+  <delete id="batchDelete">
+    DELETE FROM <include refid="tableName"/>
+    WHERE id
+    IN
+    <foreach item="item" index="index" collection="list"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+</mapper>

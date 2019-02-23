@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 模块树 -->
+    <bean id="moduleTree"
+          class="com.sungness.framework.web.support.model.ModuleTree" />
+    <!-- 请求参数验证过滤器 -->
+    <!--<bean id="requestAuthenticationFilter"-->
+          <!--class="com.sungness.manage.support.security.filter.RequestAuthenticationFilter" />-->
+    <bean id="ajaxEntyPoint"
+          class="com.sungness.manage.support.security.authentication.HttpStatusWithBodyEntryPoint">
+        <constructor-arg name="httpStatus"
+                         value="#{T(org.springframework.http.HttpStatus).UNAUTHORIZED}"/>
+        <constructor-arg name="redirectURI" value="/manage/sessionOut"/>
+    </bean>
+
+    <bean id="commandAccessDecisionFilter"
+          class="com.sungness.manage.support.security.filter.CommandAccessDecisionFilter"/>
+
+    <bean id="bcryptEncoder"
+          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </bean>
+
+    <context:property-placeholder
+            location="classpath:conf/config-properties/security.properties"
+            ignore-unresolvable="true" />
+
+    <bean id="userDetailsService"
+          class="com.sungness.manage.support.security.ManageUserDetailsService">
+        <property name="adminUsername" value="${admin.username}"/>
+        <property name="adminPassword" value="${admin.password}"/>
+    </bean>
+
+    <bean id="daoAuthenticationProvider"
+          class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="userDetailsService"/>
+        <property name="passwordEncoder" ref="bcryptEncoder"/>
+    </bean>
+
+    <bean id="manageAuthenticationSuccessHandler"
+          class="com.sungness.manage.support.security.handler.ManageAuthenticationSuccessHandler">
+        <property name="defaultTargetUrl" value="/manage/index"/>
+        <property name="defaultJsonSuccessURL" value="/manage/loginSuccessJson"/>
+    </bean>
+
+    <!-- sec标签中 模块、命令权限校验 hasPermission -->
+    <bean id="managePermissionEvaluator"
+          class="com.sungness.manage.support.security.ManagePermissionEvaluator"/>
+
+    <bean id="expressionHandler"
+          class= "org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler">
+        <property name="permissionEvaluator" ref="managePermissionEvaluator"/>
+    </bean>
+
+</beans>

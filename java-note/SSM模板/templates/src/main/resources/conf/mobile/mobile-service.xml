@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 控制器组件包扫描，加载控制器类 -->
+    <context:component-scan base-package="com.sungness.manage.component">
+        <context:include-filter type="regex" expression="..*.service"/>
+    </context:component-scan>
+
+
+    <context:component-scan base-package="com.sungness.manage.log.context">
+        <context:include-filter type="regex" expression="..*.service"/>
+    </context:component-scan>
+
+    <context:component-scan base-package="com.msymobile.mobile.context">
+        <context:include-filter type="regex" expression="..*.service"/>
+    </context:component-scan>
+
+    <context:component-scan base-package="com.msymobile.mobile.gateway">
+        <context:include-filter type="regex" expression="..*.service"/>
+    </context:component-scan>
+
+    <aop:config expose-proxy="true">
+        <aop:pointcut id="pointCoreManage"
+                      expression="execution(* com.sungness.manage.component.service..*(..))"/>
+        <aop:pointcut id="pointCoreManageLog"
+                      expression="execution(* com.sungness.manage.log.context.service..*(..))"/>
+        <aop:pointcut id="mobileLog"
+                      expression="execution(* com.msymobile.mobile.context.service..*(..))"/>
+        <aop:advisor advice-ref="platformTxAdvice" pointcut-ref="pointCoreManage"/>
+        <aop:advisor advice-ref="platformTxAdvice" pointcut-ref="pointCoreManageLog"/>
+        <aop:advisor advice-ref="platformTxAdvice" pointcut-ref="mobileLog"/>
+    </aop:config>
+</beans>

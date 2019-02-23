@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration PUBLIC "-//log4j/log4j Configuration//EN" "classpath:log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender class="org.apache.log4j.ConsoleAppender" name="console">
+		<layout class="org.apache.log4j.PatternLayout">
+			<!--<param name="ConversionPattern" value="%d %-5p [%t-%L] %-17c{2}- %m%n" />-->
+			<param name="ConversionPattern" value="%d %-5p [%C-%L] - %m%n" />
+		</layout>
+	</appender>
+	<appender class="org.apache.log4j.DailyRollingFileAppender"
+		name="file">
+		<param name="File" value="mobile-checker.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<!--<param name="ConversionPattern" value="=%d %-5p [%t-%L] %-17c{2}- %m%n" />-->
+			<param name="ConversionPattern" value="%d %-5p [%C-%L] - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- specify the logging level for loggers from other libraries -->
+
+	<logger name="com.apache">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="com.apache.ibatis">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="com.mybatis">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="java.sql">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="com.mysql">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="WARN" />
+	</logger>
+
+    <logger name="org.springframework.transaction">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="org.springframework.security">
+        <level value="WARN" />
+    </logger>
+
+	<logger name="com.mchange">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="org.jsoup">
+		<level value="DEBUG"/>
+	</logger>
+
+	<logger name="org.apache.activemq">
+		<level value="WARN"/>
+	</logger>
+
+    <logger name="com.msymobile">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="com.sungness">
+        <level value="DEBUG" />
+    </logger>
+
+	<!-- for all other loggers log only WARN and above log messages -->
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="file" />
+        <appender-ref ref="console" />
+	</root>
+</log4j:configuration> 
+

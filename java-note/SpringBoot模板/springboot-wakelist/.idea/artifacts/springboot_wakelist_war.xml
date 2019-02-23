@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="springboot-wakelist:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="templates.war">
+      <element id="artifact" artifact-name="springboot-wakelist:war exploded" />
+    </root>
+  </artifact>
+</component>

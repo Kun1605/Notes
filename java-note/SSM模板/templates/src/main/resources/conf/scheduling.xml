@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <import resource="spring-threadpool-config.xml" />
+    <task:annotation-driven executor="annotationExecutor" scheduler="annotationScheduler"/>
+    <!-- 支持 @Async 注解 -->
+    <task:executor id="annotationExecutor" pool-size="20"/>
+    <!-- 支持 @Scheduled 注解 -->
+    <task:scheduler id="annotationScheduler" pool-size="30"/>
+
+    <!--&lt;!&ndash; 新疆验证获取，30秒一次 &ndash;&gt;-->
+    <!--<task:scheduled-tasks scheduler="annotationScheduler">-->
+        <!--<task:scheduled ref="msgCheckerApp" method="start"-->
+                        <!--fixed-delay="30000" initial-delay="10000"/>-->
+    <!--</task:scheduled-tasks>-->
+    <!--&lt;!&ndash; 新疆手机号过滤，60秒一次 &ndash;&gt;-->
+    <!--<task:scheduled-tasks scheduler="annotationScheduler">-->
+        <!--<task:scheduled ref="mobileCheckerApp" method="start"-->
+                        <!--fixed-delay="60000" initial-delay="20000"/>-->
+    <!--</task:scheduled-tasks>-->
+    <!--&lt;!&ndash; 新疆手机号刷新过滤，60秒一次 &ndash;&gt;-->
+    <!--<task:scheduled-tasks scheduler="annotationScheduler">-->
+        <!--<task:scheduled ref="mobileRefreshApp" method="start"-->
+                        <!--fixed-delay="60000" initial-delay="30000"/>-->
+    <!--</task:scheduled-tasks>-->
+    <!-- 辽宁上传文件，30秒一次 -->
+    <task:scheduled-tasks scheduler="annotationScheduler">
+        <task:scheduled ref="liaoNingSendTask" method="start"
+                        fixed-delay="5000" initial-delay="30000"/>
+    </task:scheduled-tasks>
+
+    <!-- 辽宁下载文件，30秒一次 -->
+    <task:scheduled-tasks scheduler="annotationScheduler">
+        <task:scheduled ref="liaoNingDownTask" method="start"
+                        fixed-delay="5000" initial-delay="60000"/>
+    </task:scheduled-tasks>
+
+</beans>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration PUBLIC "-//log4j/log4j Configuration//EN" "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender class="org.apache.log4j.ConsoleAppender" name="console">
+		<layout class="org.apache.log4j.PatternLayout">
+			<!--<param name="ConversionPattern" value="%d %-5p [%t-%L] %-17c{2}- %m%n" />-->
+			<param name="ConversionPattern" value="%d %-5p [%C-%L] - %m%n" />
+		</layout>
+	</appender>
+	<!--<appender class="org.apache.log4j.DailyRollingFileAppender"
+		name="file">
+		<param name="File" value="test.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			&lt;!&ndash;<param name="ConversionPattern" value="=%d %-5p [%t-%L] %-17c{2}- %m%n" />&ndash;&gt;
+			<param name="ConversionPattern" value="%d %-5p [%C-%L] - %m%n" />
+		</layout>
+	</appender>-->
+
+	<!-- specify the logging level for loggers from other libraries -->
+
+	<logger name="com.apache">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="com.apache.ibatis">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="com.mybatis">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="java.sql">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="com.mysql">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="WARN" />
+	</logger>
+
+    <logger name="org.springframework.security">
+        <level value="WARN" />
+    </logger>
+
+	<logger name="org.springframework.amqp">
+		<level value="INFO"/>
+	</logger>
+
+	<!-- for all other loggers log only INFO and above log messages -->
+	<root>
+		<priority value="INFO" />
+		<!--<appender-ref ref="file" />-->
+        <appender-ref ref="console" />
+	</root>
+</log4j:configuration> 
+

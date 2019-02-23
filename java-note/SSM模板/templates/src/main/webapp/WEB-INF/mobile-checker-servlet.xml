@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!--
+        注册 RequestMappingHandlerMapping、RequestMappingHandlerAdapter、
+        ExceptionHandlerExceptionResolver 用于支持处理使用注解方式的控制器方法
+    -->
+    <!-- 激活@Controller模式 -->
+    <mvc:annotation-driven validator="validator" content-negotiation-manager="contentNegotiationManager">
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- 管理系统 基础控制器组件包扫描，加载控制器类 -->
+    <context:component-scan base-package="com.sungness.manage.component" >
+        <context:include-filter type="regex" expression="..*.controller"/>
+    </context:component-scan>
+
+    <!-- 管理系统 控制器组件包扫描，加载控制器类 -->
+    <context:component-scan base-package="com.msymobile.mobile.manage.controller" >
+        <context:include-filter type="regex" expression="..*.controller"/>
+    </context:component-scan>
+
+    <!-- 管理系统 控制器组件包扫描，加载控制器类 -->
+    <context:component-scan base-package="com.msymobile.mobile.gateway.controller" >
+        <context:include-filter type="regex" expression="..*.controller"/>
+    </context:component-scan>
+
+    <!-- 以下 validator  ConversionService 在使用 mvc:annotation-driven 会自动注册
+        “messageSource”详细内容参见conf/messages.xml -->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <!-- 如果不加，默认使用classpath下的 ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="ignoreDefaultModelOnRedirect" value="true" />
+    </bean>
+
+    <mvc:default-servlet-handler/>
+
+    <!-- 请求的URL地址到视图名字的自动转换器定义 -->
+    <bean id="viewNameTranslator"
+          class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator" />
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <value>
+                xls=application/vnd.ms-excel
+                json=application/json
+                xml=application/xml
+                html=text/html
+            </value>
+        </property>
+    </bean>
+    <!-- 视图解析器定义 -->
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order" value="1"/>
+        <property name="contentNegotiationManager" ref="contentNegotiationManager"/>
+        <property name="viewResolvers">
+            <list>
+                <bean id="excelViewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
+                    <property name="order" value="1"/>
+                    <property name="location" value="classpath:conf/mobile/mobile-views.xml"/>
+                </bean>
+                <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+                <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+                    <property name="prefix" value="/WEB-INF/jsp/" />
+                    <property name="suffix" value=".jsp" />
+                    <property name="exposedContextBeanNames">
+                        <list>
+                            <value>i18n</value>
+                            <value>htmlGrid</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+        <property name="defaultViews">
+            <list>
+                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+            </list>
+        </property>
+    </bean>
+
+    <!-- Using a MultipartResolver with Commons FileUpload -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- one of the properties available; the maximum file size in bytes -->
+        <property name="maxUploadSize" value="67108864" />
+    </bean>
+
+    <!-- Locale Resolver -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="zh_CN"/>
+    </bean>
+
+    <bean id="commandInfoInterceptor"
+          class="com.sungness.manage.support.interceptor.CommandAssembleInterceptor" >
+        <property name="excludeSuffix">
+            <set>
+                <value>json</value>
+                <value>xls</value>
+            </set>
+        </property>
+        <property name="noTreeParam" value="notree" />
+    </bean>
+
+    <bean id="commandLogInterceptor"
+          class="com.sungness.manage.support.interceptor.CommandLogInterceptor"/>
+
+    <bean id="decryptInterceptor" class="com.msymobile.mobile.gateway.interceptor.DecryptInterceptor"/>
+
+    <mvc:interceptors>
+        <bean id="localeChangeInterceptor"
+              class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/**"/>
+            <mvc:exclude-mapping path="/api/notify"/>
+            <ref bean="decryptInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/manage/**"/>
+            <mvc:exclude-mapping path="/manage/templates/**"/>
+            <mvc:exclude-mapping path="/manage/login"/>
+            <ref bean="commandLogInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/manage/**"/>
+            <mvc:exclude-mapping path="/manage/templates/**"/>
+            <mvc:exclude-mapping path="/manage/login"/>
+            <ref bean="commandInfoInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- 定义公共控制器 -->
+    <bean id="defaultHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+    <!-- 管理模块注解初始化监听器(moduleTree在security-service.xml中声明) -->
+    <bean id="moduleInitializeListener"
+          class="com.sungness.manage.support.listener.ManageModuleInitializeListener">
+        <property name="moduleTree" ref="moduleTree" />
+    </bean>
+
+</beans>

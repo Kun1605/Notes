@@ -1,0 +1,63 @@
+.button-multiselect {
+	width: 150px;
+	height: 30px;
+	margin-top: 10px;
+}
+.div-multiselect {
+	text-align: center;
+	margin-left: 0;
+}
+.form-control {
+	text-indent: 12px;
+	display: block !important;
+	width: 100% !important;
+	height: auto !important;
+	padding: 6px 0 6px 0 !important;
+	font-size: 14px !important;
+	line-height: 1.42857143 !important;
+	color: #555 !important;
+	background: #fff none !important;
+	border: 1px solid #ccc !important;
+	border-radius: 4px !important;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075) !important;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075) !important;
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s !important;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s !important;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s !important;
+}
+.form-control:focus {
+	border-color: #66afe9;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+.form-control::-moz-placeholder {
+	color: #999;
+	opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+	color: #999;
+}
+.form-control::-webkit-input-placeholder {
+	color: #999;
+}
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+	background-color: #eee;
+	opacity: 1;
+}
+.form-control[disabled],
+fieldset[disabled] .form-control {
+	cursor: not-allowed;
+}
+textarea.form-control {
+	height: auto;
+}
+.chzn-container{
+	display:none !important;
+
+}
+.span3 select{
+	display: block !important;
+}
