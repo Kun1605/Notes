@@ -308,7 +308,7 @@ class TypeFn {
      
     return /^(\d{4})\-(\d{2})\-(\d{2}) (\d{2})(?:\:\d{2}|:(\d{2}):(\d{2}))$/.test(str) || /^(\d{4})\-(\d{2})\-(\d{2})$/.test(str)
      
-    case 'number': //数字
+    case 'number': //数字 这里可能有问题，看下面的
      
     return /^[0-9]*$/.test(str);
      
@@ -418,7 +418,7 @@ class TypeFn {
      
      
      
-        var reg = new RegExp("^[0-9]*$");
+var reg = new RegExp("^[0-9]*$");
                 if (!reg.test(bank_code)) {
                 jQuery('#bank_code_err').text('对公银行账号只能是纯数字!');
                 jQuery('#bank_code_err').show();
