@@ -1,9 +1,3 @@
-#### 根据名字多个查询下拉框的东西
-
-```javascript
- $("#producttype").find("option:contains('友客')").attr("selected",true)
-```
-
 #### 常用的js
 
 ```javascript
