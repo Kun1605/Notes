@@ -18,58 +18,60 @@
 
 > 例子
 
-	package com.hdc.baseEncrytion;
-	import sun.misc.BASE64Decoder;
-	import sun.misc.BASE64Encoder;
-	
-	import java.io.IOException;
-	
-	/**
-	 * base64 加密解密是双向的，可以求反解
-	 */
-	public class CreateBase64 {
-	
-	    /**
-	     * base64 解密
-	     * @param key
-	     * @return
-	     * @throws Exception
-	     */
-	    public static byte[] decrytBase64(String key) throws Exception {
-	        BASE64Decoder base64Decoder = new BASE64Decoder();
-	        byte[] buffer = base64Decoder.decodeBuffer(key);
-	        return buffer;
-	    }
-	
-	    /**
-	     * base64 加密
-	     * @param b
-	     * @return
-	     */
-	    public static String encritBase64(byte[] b){
-	        BASE64Encoder base64Encoder = new BASE64Encoder();
-	        String result = base64Encoder.encodeBuffer(b);
-	        return result;
-	    }
-	
-	    public static void main(String[] args) {
-	        String str = "123456asdhdjashdfjkads";
-	        String result1 = encritBase64(str.getBytes());
-	        System.out.println("加密数据："+result1);
-	
-	        try {
-	            byte[] buffer = decrytBase64(result1);
-	            String result2 = new String(buffer);
-	            System.out.println("解密数据："+result2);
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	
-	    }
-	}
+```Java
+package com.hdc.baseEncrytion;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
-	加密数据：MTIzNDU2YXNkaGRqYXNoZGZqa2Fkcw==
-	解密数据：123456asdhdjashdfjkads
+import java.io.IOException;
+
+/**
+ * base64 加密解密是双向的，可以求反解
+ */
+public class CreateBase64 {
+
+    /**
+     * base64 解密
+     * @param key
+     * @return
+     * @throws Exception
+     */
+    public static byte[] decrytBase64(String key) throws Exception {
+        BASE64Decoder base64Decoder = new BASE64Decoder();
+        byte[] buffer = base64Decoder.decodeBuffer(key);
+        return buffer;
+    }
+
+    /**
+     * base64 加密
+     * @param b
+     * @return
+     */
+    public static String encritBase64(byte[] b){
+        BASE64Encoder base64Encoder = new BASE64Encoder();
+        String result = base64Encoder.encodeBuffer(b);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        String str = "123456asdhdjashdfjkads";
+        String result1 = encritBase64(str.getBytes());
+        System.out.println("加密数据："+result1);
+
+        try {
+            byte[] buffer = decrytBase64(result1);
+            String result2 = new String(buffer);
+            System.out.println("解密数据："+result2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+
+加密数据：MTIzNDU2YXNkaGRqYXNoZGZqa2Fkcw==
+解密数据：123456asdhdjashdfjkads
+```
 
 <a name="2、MD5"></a>
 ### 2、MD5 ###
@@ -81,85 +83,88 @@
 > 例子  
 > 使用字节直接转十六进制后加密
 
-	package com.hdc.baseEncrytion;
+```java
+package com.hdc.baseEncrytion;
 
-	import java.security.MessageDigest;
-	import java.security.NoSuchAlgorithmException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-	public class CreateMd5 {
-	    public static void main(String[] args) {
-	        String result = enctyptionPasswd("123456789","test");
-	        System.out.println("MD5加密后的数据："+ result);
-	    }
-	    //公盐
-	    private static final String PUBLIC_SALT = "hello";
-	
-	    //十六进制下数字到字符的映射数组
-	    private final static String[] hexDigits = {"0", "1", "2", "3", "4",
-	            "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
-	
-	    /**
-	     * 用户密码加密，盐值为 ：私盐+公盐
-	     * @param  passwd 密码
-	     * @param  salt 私盐
-	     * @return  MD5加密字符串
-	     */
-	    public static String enctyptionPasswd(String passwd,String salt ){
-	        return encodeByMD5(PUBLIC_SALT + passwd + salt);
-	    }
-	
-	    /**
-	     * md5 加密算法
-	     * @param originString
-	     * @return 返回加密后的md5 值
-	     */
-	    private static String encodeByMD5(String originString){
-	        String resultString = "";
-	        if (originString != null){
-	            try {
-	                //创建一个提供信息摘要算法的对象，初始化为 baseEncrytion 算法对象
-	                MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-	                //初始化为 SHA1 算法对象
-	//                MessageDigest messageDigest = MessageDigest.getInstance("SHA1");
-	
-	                //将消息变成byte数组
-	                byte[] results = messageDigest.digest(originString.getBytes());
-	
-	                //将字节数组转换成字符串返回
-	                resultString = byteArrayToHexString(results).toString().toUpperCase();
-	
-	            } catch (NoSuchAlgorithmException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	                return resultString;
-	    }
-	
-	    /**
-	     * 转换字节为十六进制字符串
-	     * 一个字节是八个二进制，即2个十六进制
-	     * @param results 字节数组
-	     * @return 十六进制字符串
-	     */
-	    private static String byteArrayToHexString(byte[] results) {
-	
-	        StringBuffer stringBuffer = new StringBuffer();
-	        for (int i = 0; i < results.length; i++) {
-	            // 取出这个字节的高4位，然后与0x0f【15】与运算，得到一个0-15之间的数据,即高位的16进制数
-	            stringBuffer.append(hexDigits[(results[i] >> 4) & 0x0f]);
-	            // 取出这个字节的低位，与0x0f与运算，得到一个0-15之间的数据,即低位的16进制数
-	            stringBuffer.append(hexDigits[results[i] & 0x0f]);
-	        }
-	            return stringBuffer.toString();
-	    }
-	
-	
+public class CreateMd5 {
+    public static void main(String[] args) {
+        String result = enctyptionPasswd("123456789","test");
+        System.out.println("MD5加密后的数据："+ result);
+    }
+    //公盐
+    private static final String PUBLIC_SALT = "hello";
+
+    //十六进制下数字到字符的映射数组
+    private final static String[] hexDigits = {"0", "1", "2", "3", "4",
+            "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
+
+    /**
+     * 用户密码加密，盐值为 ：私盐+公盐
+     * @param  passwd 密码
+     * @param  salt 私盐
+     * @return  MD5加密字符串
+     */
+    public static String enctyptionPasswd(String passwd,String salt ){
+        return encodeByMD5(PUBLIC_SALT + passwd + salt);
+    }
+
+    /**
+     * md5 加密算法
+     * @param originString
+     * @return 返回加密后的md5 值
+     */
+    private static String encodeByMD5(String originString){
+        String resultString = "";
+        if (originString != null){
+            try {
+                //创建一个提供信息摘要算法的对象，初始化为 baseEncrytion 算法对象
+                MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+                //初始化为 SHA1 算法对象
+//                MessageDigest messageDigest = MessageDigest.getInstance("SHA1");
+
+                //将消息变成byte数组
+                byte[] results = messageDigest.digest(originString.getBytes());
+
+                //将字节数组转换成字符串返回
+                resultString = byteArrayToHexString(results).toString().toUpperCase();
+
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
+                return resultString;
+    }
+
+    /**
+     * 转换字节为十六进制字符串
+     * 一个字节是八个二进制，即2个十六进制
+     * @param results 字节数组
+     * @return 十六进制字符串
+     */
+    private static String byteArrayToHexString(byte[] results) {
+
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < results.length; i++) {
+            // 取出这个字节的高4位，然后与0x0f【15】与运算，得到一个0-15之间的数据,即高位的16进制数
+            stringBuffer.append(hexDigits[(results[i] >> 4) & 0x0f]);
+            // 取出这个字节的低位，与0x0f与运算，得到一个0-15之间的数据,即低位的16进制数
+            stringBuffer.append(hexDigits[results[i] & 0x0f]);
+        }
+            return stringBuffer.toString();
+    }
+```
+
+
+​	
 	}
 
 > 使用BigInteger转十六进制后加密
-	
-	package com.hdc.baseEncrytion;
 
+	package com.hdc.baseEncrytion;
+	
 	import java.math.BigInteger;
 	import java.security.MessageDigest;
 	import java.security.NoSuchAlgorithmException;
@@ -195,7 +200,7 @@
 > 使用DigestUtils工具加密
 
 	package com.hdc.baseEncrytion;
-
+	
 	import org.apache.commons.codec.digest.DigestUtils;
 	
 	import java.util.Arrays;
@@ -218,23 +223,24 @@
 	        String sha = DigestUtils.sha256Hex(key);
 	        System.out.println("sha256加密："+sha);
 	    }
-	
-	
+
+
+​	
 	}
 
 > BigInteger
 
 	不可变的任意精度的整数，提供所有 Java 的基本整数操作符的对应物，并提供 java.lang.Math 的所有相关方法【参考API】
-
+	
 	1. String toString() 
 		返回此 BigInteger 的十进制字符串表示形式。
- 
+	 
 	2. String toString(int radix) 
 		返回此 BigInteger 的给定基数的字符串表示形式。 
-
+	
 	3. String toString(16)
 		返回十六进制字符串 
-
+	
 	4.BigInteger(byte[] val) 
 		将包含 BigInteger 的二进制补码表示形式的 byte 数组转换为 BigInteger
 
@@ -255,7 +261,7 @@
 > 例子
 
 	package com.hdc.baseEncrytion;
-
+	
 	import java.math.BigInteger;
 	import java.security.MessageDigest;
 	
@@ -297,7 +303,7 @@
 > 实例
 
 	import org.apache.commons.codec.binary.Base64;
-
+	
 	import javax.crypto.*;
 	import javax.crypto.spec.SecretKeySpec;
 	import java.security.InvalidKeyException;
@@ -402,12 +408,12 @@
 
 	公钥加密，使用私钥解密；
 	私钥加密，使用公钥解密；
-
+	
 	1024位的证书，加密时最大支持117个字节，解密时为128；
 	2048位的证书，加密时最大支持245个字节，解密时为256。
 
 > 作用
- 
+
 	数据加密；数字签名。
 
 > 实例
@@ -425,8 +431,9 @@
 	import java.security.spec.InvalidKeySpecException;
 	import java.security.spec.PKCS8EncodedKeySpec;
 	import java.security.spec.X509EncodedKeySpec;
-	
-	
+
+
+​	
 	/**
 	 * Create By HuangDongChang In 2018/5/4
 	 */
