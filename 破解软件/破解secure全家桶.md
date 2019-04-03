@@ -101,3 +101,4 @@ perl securecrt_linux_crack.pl /usr/bin/SecureCRT
 
 
 
+![1554251438169](assets/1554251438169.png)
