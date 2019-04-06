@@ -23,3 +23,12 @@ Linux到底有没有占用空间的垃圾文件，下图就可以说明。
 3，列出体积大于100M的目录，命令`du ~/.cache -t 100M` ，然后酌情清理之。
 
 不过，这样手动清理效果不仅折腾人，而且效果也不是很完美。现在看来，Linux根本不是没有垃圾文件，而是没有这360安全卫士那样简单而又得力的垃圾清理工具啊！
+
+
+
+```css
+	background-gradient-start: rgba(89,87,78,1.0);
+    background-gradient-end: rgba(64,63,58,1.0);
+    background-gradient-direction: vertical;
+```
+
