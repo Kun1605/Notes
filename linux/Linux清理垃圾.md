@@ -27,8 +27,6 @@ Linux到底有没有占用空间的垃圾文件，下图就可以说明。
 
 
 ```css
-	background-gradient-start: rgba(89,87,78,1.0);
-    background-gradient-end: rgba(64,63,58,1.0);
-    background-gradient-direction: vertical;
+或者安装stacer软件来清理垃圾贼棒
 ```
 
