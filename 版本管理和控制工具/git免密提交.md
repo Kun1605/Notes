@@ -51,3 +51,10 @@
 
 2. git push 代码
    `push`你的代码 (`git push`), 这时会让你输入`用户名`和`密码`, 这一步输入的用户名密码会被`记住`, 下次再push代码时就不用输入用户名密码!这一步会在用户目录下生成文件`.git-credential`记录用户名密码的信息。
+
+### 治疗git下载速度太慢的办法(刷新DNS缓存)
+
+```shell
+sudo /etc/init.d/networking restart
+```
+

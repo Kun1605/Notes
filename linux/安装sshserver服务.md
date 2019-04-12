@@ -115,3 +115,32 @@ vim /etc/ssh/sshd_config
 重启ssh服务即可。
 
 发现root的控制台不是彩色的，那么就把当前 用户的 ～/.bashrc 拷贝到 /root/.bashrc
+
+
+
+### 接下来破解securesfx系列
+
+```shell
+sudo perl securecrt_linux_crack.pl /usr/bin/SecureCRT
+```
+
+```
+Name: ygeR
+Company: TEAM ZWT
+Serial Number:03-36-338639
+License Key: ADJE19 7U19YF 46RJWC 3CGK73 ADF3GN S66TJJ YU7BJP 6WJF1G
+Issue Date: 03-10-2017
+```
+
+```shell
+sudo perl securefx_linux_crack.pl /usr/bin/SecureFX
+```
+
+```
+Name: ygeR
+Company: TEAM ZWT
+Serial Number:06-70-001589
+License Key: ACUYJV Q1V2QU 1YWRCN NBYCYK ABU767 D4PQHA S1C4NQ GVZDQF
+Issue Date: 03-10-2017
+```
+
