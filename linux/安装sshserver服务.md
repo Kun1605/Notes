@@ -144,3 +144,54 @@ License Key: ACUYJV Q1V2QU 1YWRCN NBYCYK ABU767 D4PQHA S1C4NQ GVZDQF
 Issue Date: 03-10-2017
 ```
 
+
+
+## wps缺少字体
+
+安装，打开终端：
+
+```
+cd 下载
+sudo dpkg -i wps-office_10.1.0.5672~a21_amd64.deb 
+```
+
+ 解决打开WPS时出现的系统缺失字体问题：
+
+下载
+
+<https://pan.baidu.com/s/1eS6xIzo>
+
+wps_symbol_fonts.zip
+
+ 
+
+将wps_symbol_fonts.zip解压
+
+```
+cd wps_symbol_fonts
+ls
+```
+
+ 将目录中所有文件复制到/usr/share/fonts下：
+
+```
+sudo cp mtextra.ttf  symbol.ttf  WEBDINGS.TTF  wingding.ttf  WINGDNG2.ttf  WINGDNG3.ttf  /usr/share/fonts
+```
+
+重新打开WPS，问题解决。
+
+另外，安装完WPS后就没有必要保留libreOffice
+
+卸载libreOffice：
+
+```
+sudo apt-get remove libreoffice-common
+```
+
+顺便把Amazon链接删除了吧：
+
+```
+sudo apt-get remove unity-webapps-common
+
+sudo apt autoremove
+```
