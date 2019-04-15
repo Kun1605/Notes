@@ -2,19 +2,19 @@
 
 	MVVM【Model View ViewModel】架构,ViewModel视图模型，用来管理model和view之间的关系。
 	视图表单的数据和程序数据是对应关联的，一个变化，另一个直接改变，而不需要使用控制器对其进行对应修改。
-
+	
 	AngularJS是一个开发动态Web应用的框架。
 	Angular是为了扩展HTML在构建应用时本应具备的能力而设计的。
 	Angular通过指令（directive）扩展HTML的语法。
 	指令使用 ng- 作为前缀。
-
+	
 	例如：
 		通过{{}}进行数据绑定。
 		使用DOM控制结构来进行迭代或隐藏DOM片段。
 		支持表单和表单验证。
 		将逻辑代码关联到DOM元素上。
 		将一组HTML做成可重用的组件。
-	
+
 双向数据绑定
 
 	在Angular网页应用中，数据绑定是数据模型(model)与视图(view)组件的自动同步。
@@ -23,10 +23,10 @@
 	angular是局部刷新，不是全局刷新。
 	表单数据和程序数据进行双向绑定，程序数据或者表单数据的改变会自动更新到视图中显示。
 	不直接去操作DOM元素,只需要关心怎么操作数据。
-
+	
 	ng-model指令将程序数据和表单元素进行双向绑定
 		ng-model="name"
-
+	
 	用途：
 		插入表单和空程序数据对象绑定，插入的表单的数据即输入到程序数据中，这样就可以在程序中获取用户输入的数据。
 
@@ -38,7 +38,7 @@
 	
 	没有依赖模块
 	angular.module('invoice', []);
-
+	
 	使用：
 		在表单中使用指令 ng-app='模块名'来指定使用的模块。
 		一个视图页面只能使用一个 ng-app。
@@ -49,18 +49,18 @@
 	控制器的用途是导出一些变量和函数，供模板中的表达式(expression)和指令(directive)使用。
 	当一个控制器通过 ng-controller 指令被添加到DOM中时，ng 会调用该控制器的构造函数来生成一个控制器对象，这样，就创建了一个新的子级 作用域(scope)。
 	我们使用控制器做两件事：
-
+	
 		初始化 $scope 对象
 		为 $scope 对象添加行为（方法）
-
+	
 	如果需要使用服务的话，首先要在控制器中注入服务。
-
+	
 	//js
 	var app = angular.module('模块名',[]);
 	app.controller('控制器类',['依赖实参',function(依赖形参){
 		//操作变量/函数
 	}]);
-
+	
 	//需要在表单中创建控制器指令属性
 	ng-controller="控制器类 as 控制器实例"
 	
@@ -100,7 +100,7 @@
 
 	使用指令 ng-repear 来遍历数据。
 	语法：ng-repeat="变量名 in 数组数据"
-
+	
 	<tr ng-repeat="item in score.data">
 		<td>{{ item.sid }}</td>
 		<td>{{ item.name }}</td>
@@ -111,29 +111,29 @@
 > ng-options
 
 	label为显示的对象；value为对象的值
-
+	
 	1. 数据为普通数组形式
 		this.arr = ['a','b','c'];
 		ng-options = "item for item in mainCtrl.arr"
-
+	
 	2. 数据为数组对象形式
 		this.arr2 = [
-    			{'sid' : 10001, 'name' : 'alex', 'age' : 23 },
-    			{'sid' : 10002, 'name' : 'kevin', 'age' : 27},
-    			{'sid' : 10003, 'name' : 'sam', 'age' : 25}
-    		];
+				{'sid' : 10001, 'name' : 'alex', 'age' : 23 },
+				{'sid' : 10002, 'name' : 'kevin', 'age' : 27},
+				{'sid' : 10003, 'name' : 'sam', 'age' : 25}
+			];
 		ng-options = "item.sid as item.name for item in mainCtrl.obj">
-
+	
 		ng-options格式： <提交的值> as <显示的值> for 迭代变量 in 数组
-
+	
 	3.数据为普通对象形式
 		this.obj = {
-    			'sid' : 10001, 
-    			'name' : 'alex',
-    			'age' : 23
-    		};
+				'sid' : 10001, 
+				'name' : 'alex',
+				'age' : 23
+			};
 		ng-options = "value as key for (key,value) in mainCtrl.obj"
-
+	
 		ng-options格式： <提交的值> as <显示的值> for (key,value) in 数组
 
 
@@ -143,7 +143,7 @@
 	angular使用ajax 发送请求，需要使用内置 $http服务。
 	所有的内置服务都是 $开头。
 	使用依赖注入的语法引入到控制器中，实参注入形参。
-
+	
 	var app = angular.module('myapp',[]);
 	app.controller('MainCtrl',['$http',function($http){
 			$http.get('').then(function(){
@@ -154,33 +154,34 @@
 表单验证
 
 	<body ng-app="myapp" ng-controller="MainCtrl as mainCtrl">
-    {{ mainCtrl.formObj }}
-    <form name="myform">
-    	<p>
-    		姓名:<input type="text" name="name" required ng-model="mainCtrl.formObj.name" 
-    			ng-pattern="/^[\u4e00-\u9fa5]{2,5}$/">
-    		<span ng-show="myform.name.$dirty && myform.name.$error.required">请填写用户名</span>
-    		<span ng-show="myform.name.$error.pattern">用户名不合法</span>
-    	</p>
-
+	{{ mainCtrl.formObj }}
+	<form name="myform">
+		<p>
+			姓名:<input type="text" name="name" required ng-model="mainCtrl.formObj.name" 
+				ng-pattern="/^[\u4e00-\u9fa5]{2,5}$/">
+			<span ng-show="myform.name.$dirty && myform.name.$error.required">请填写用户名</span>
+			<span ng-show="myform.name.$error.pattern">用户名不合法</span>
+		</p>
+	
 		<p>
 			年龄:<input type="number" name="age" required ng-model="mainCtrl.formObj.age" max="60" min="15">
 			<span ng-show="myform.age.$dirty && myform.age.$error.required">请填写年龄</span>
 			<span ng-show="myform.age.$error.max">最大年龄60</span>
 			<span ng-show="myform.age.$error.min">最小年龄15</span>
 		</p>
-
-    </form>
-
-    <script type="text/javascript">
-    	var app = angular.module('myapp',[]);
-    	app.controller('MainCtrl',[function(){
-    			this.formObj={};
-    	}]);
-
-    </script>
-
 	
+	</form>
+	
+	<script type="text/javascript">
+		var app = angular.module('myapp',[]);
+		app.controller('MainCtrl',[function(){
+				this.formObj={};
+		}]);
+	
+	</script>
+
+
+​	
 |属性|描述|
 |:--|:--|
 |$dirty|表单有填写记录|
@@ -195,18 +196,19 @@
 
 	angular使用service函数可以定义一个服务，服务是一个函数或对象。
 	服务是单例对象。惰性加载。
-
+	
 	var app = angular.module('模块名',[]);
 	//创建服务
 	app.service('服务名',[])
 
-	
+
+​	
 	$http 是 AngularJS 应用中最常用的服务。 
 		服务向服务器发送请求，应用响应服务器传送过来的数据。
-
+	
 	AngularJS $timeout 服务对应了 JS window.setTimeout 函数。
 	AngularJS $interval 服务对应了 JS window.setInterval 函数。
-
+	
 		var app = angular.module('myApp', []);
 		app.controller('myCtrl', function($scope, $timeout) {
 		    $scope.myHeader = "Hello World!";
@@ -219,7 +221,7 @@
 
 	返回一个对象的函数就是工厂【服务】。
 	app.factory();	//定义一个工厂，也是一个服务
-
+	
 	//必须返回对象
 	app.factory('myService' , [ function(){
 			return {
@@ -227,14 +229,15 @@
 			}
 		}]);
 
-	
+
+​	
 	和service()函数相比，factory()具有更高的封装性。
 	factory()要求只能用暴露的函数来操作。
 
 > 例子：
-	
-	<body  ng-app = "myapp"  ng-controller="MainCtrl as mainCtrl">
 
+	<body  ng-app = "myapp"  ng-controller="MainCtrl as mainCtrl">
+	
 		{{ mainCtrl.getA() }}
 		<button type="button" ng-click="mainCtrl.add()">+</button>
 	
@@ -280,7 +283,7 @@
 > service()和factory()区别
 
 	service()定义的是构造函数，服务名一般首字母大写，里面可以使用this来定义属性、方法，都是静态的属性、方法，使用类名来调用。
-
+	
 	factory()定义的是一个工厂，工厂就会返回一个对象【API清单】，且不能使用this 来定义属性、方法，必须使用return来返回，封装性更好。
 
 > constant服务
@@ -289,7 +292,7 @@
 	constant创建用于存放一些数据或方法以供使用的服务，不会去修改它的内容【固定的】，需要修改内容的，最好使用value去创建服务。
 	语法：
 		app.constant(nae,{//对象});
-
+	
 	app.constant('constantService',{
 			'sid' : 10001,
 			'user' : {
@@ -306,7 +309,7 @@
 	value创建用于存放一些数据或方法以供使用的服务，value服务存放可能会被修改的内容。
 	语法：
 		app.value(nae,{//对象});
-
+	
 	app.value('valueService',{
 			'sid' : 10001,
 			'user' : {
@@ -322,7 +325,7 @@
 
 	provider(name,fn)是service()和factory()的底层函数。
 		fn: 函数，返回一个对象，该对象必须有$get方法，该方法还必须返回一个对象，该对象才是真实被注入的服务。
-
+	
 	语法：
 		app.provider('providerService',function(){
 				return{
@@ -333,11 +336,11 @@
 					}
 				}
 			});
-
+	
 	provider中第一层函数返回外的属性、方法都是给config()函数【配置】使用的。
 	语法：
 		app.config(function(形参){//TODO})	//形参命名: provider服务名 + Provider
-
+	
 	例子：
 		//配置服务,形参命名：provider服务名 + Provider
 		app.config(function(providerServiceProvider){
@@ -363,7 +366,7 @@
 
 	自定义标签指令。
 	定义指令名的时候，不可以使用‘-’，如果有大写字符，标签中使用驼峰命名格式的指令名
-
+	
 	例子：
 		<body ng-app = "myapp">
 	    
@@ -433,20 +436,19 @@
 	这里是compile function，将在下面实例详细说明
 	link
 	这里是link function ，将在下面实例详细讲解。这个属性仅仅是在compile属性没有定义的情况下使用。
-
+	
 	$scope：
 	scope:默认是false,为true则将作用域为私有
 
 scope 对象中的特殊标识符：
 
 	scope: {}
-
+	
 	=	表明HTML属性值是JSON对象，并进行双向绑定
 	@	表明HTML属性值是字符串，并进行双向绑定
 	&	表明HTML属性值是一个函数
-
+	
 	通过属性将值传入组件中
 	scope:{
 		name: "@"	//将标签中的属性name的值传入到组件中
 	}
-	

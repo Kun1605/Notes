@@ -132,13 +132,22 @@ mount   挂载外部存储设备到文件系统中
 mkdir   /mnt/cdrom      创建一个目录，用来挂载
 mount -t iso9660 -o ro /dev/cdrom /mnt/cdrom/     将设备/dev/cdrom挂载到 挂载点 ：  /mnt/cdrom中
 
+```
 *umount
 umount /mnt/cdrom
 
 
+```
+
 *统计文件或文件夹的大小
+
+```
 du -sh  /mnt/cdrom/Packages
 df -h    查看磁盘的空间
+```
+
+
+
 关机
 halt
 重启
@@ -149,11 +158,25 @@ reboot
 假如 A  要登陆  B
 在A上操作：
 首先生成密钥对
+
+```
 ssh-keygen   (提示时，直接回车即可)
+```
+
+
+
 再将A自己的公钥拷贝并追加到B的授权列表文件authorized_keys中
+
+```
 ssh-copy-id   B
+```
 
+apt-get不升级某些应用
 
+```
+apt-mark hold wps-office   
+apt-mark hold wps-office   
+```
 
 
 
