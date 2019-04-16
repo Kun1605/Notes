@@ -38,7 +38,7 @@ Categories=Application;
 JAVA_HOME=/search/codeide/jdk1.8.0_161
 export PATH=$JAVA_HOME/bin:$PATH 
 export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
-export MAVEN_HOME=/search/codeide/apache-maven-3.3.9-bin/apache-maven-3.3.9
+export MAVEN_HOME=/search/codeide/apache-maven-3.3.9
 export PATH=$MAVEN_HOME/bin:$PATH
 ```
 
