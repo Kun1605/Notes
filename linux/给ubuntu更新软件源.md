@@ -57,3 +57,17 @@ sudo apt-get install vim    安装vim
 ```
 
  
+
+
+
+
+
+切换
+
+```
+ubuntu下制作win7/win10启动盘工具woeusb
+sudo add-apt-repository ppa:nilarimogard/webupd8
+sudo apt-get update
+sudo apt-get install woeusb
+```
+

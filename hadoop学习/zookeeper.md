@@ -20,6 +20,20 @@ Zookeeper常用应用场景：
 
 《见图》
 
+zookeeper的应用场景
+
+![1555515321696](assets/1555515321696.png)
+
+
+
+
+
+
+
+zookeeper动态感知示意图
+
+![1555515254392](assets/1555515254392.png)
+
  
 
 Zookeeper集群的角色：  Leader 和  follower  （Observer）
