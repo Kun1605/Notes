@@ -56,13 +56,9 @@ sudo apt-get install 软件名称
 sudo apt-get install vim    安装vim
 ```
 
- 
 
 
-
-
-
-切换
+##### 5换回win7
 
 ```
 ubuntu下制作win7/win10启动盘工具woeusb
@@ -71,3 +67,66 @@ sudo apt-get update
 sudo apt-get install woeusb
 ```
 
+##### 安装qq微信等
+
+1，安装deepin-wine环境：上https://gitee.com/wszqkzqk/deepin-wine-for-ubuntu页面下载zip包（或用git方式克隆），解压到本地文件夹，在文件夹中打开终端，输入sudo sh ./install.sh一键安装。
+
+2，安装deepin.com应用容器：在http://mirrors.aliyun.com/deepin/pool/non-free/d/中下载想要的容器，点击deb安装即可。以下为推荐容器:
+
+    QQ：http://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.qq.im/
+    TIM：http://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.qq.office/
+    QQ轻聊版：http://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.qq.im.light/
+    微信：http://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.wechat/
+    Foxmail：http://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.foxmail/
+    百度网盘：http://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.baidu.pan/
+    360压缩：http://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.cn.360.yasuo/
+
+3，Ubuntu 18.04 Gnome桌面显示传统托盘图标：安装TopIconPlus的gnome-shell扩展，命令：sudo apt-get install gnome-shell-extension-top-icons-plus gnome-tweaks，然后用gnome-tweaks开启这个扩展。
+
+* Ubuntu系发行版包括Ubuntu、LinuxMint、ZorinOS等。
+
+
+
+## wps缺少字体
+
+安装，打开终端：
+
+```
+cd 下载
+sudo dpkg -i wps-office_10.1.0.5672~a21_amd64.deb 
+```
+
+ 解决打开WPS时出现的系统缺失字体问题：
+
+下载
+
+<https://pan.baidu.com/s/1eS6xIzo>
+
+wps_symbol_fonts.zip
+
+ 
+
+将wps_symbol_fonts.zip解压
+
+```
+cd wps_symbol_fonts
+ls
+```
+
+ 将目录中所有文件复制到/usr/share/fonts下：
+
+```
+sudo cp mtextra.ttf  symbol.ttf  WEBDINGS.TTF  wingding.ttf  WINGDNG2.ttf  WINGDNG3.ttf  /usr/share/fonts
+```
+
+重新打开WPS，问题解决。
+
+另外，安装完WPS后就没有必要保留libreOffice
+
+卸载libreOffice：
+
+```
+sudo apt-get remove libreoffice-common
+```
+
+顺便把Amazon链接删除了吧：
