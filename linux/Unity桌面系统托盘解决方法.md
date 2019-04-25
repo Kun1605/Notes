@@ -25,6 +25,11 @@ sudo apt-get remove fcitx-ui-qimpanel
 sudo apt-add-repository ppa:fixnix/indicator-systemtray-unity
 sudo apt-get update
 sudo apt-get install indicator-systemtray-unity
+
+
+  sudo add-apt-repository ppa:fossfreedom/indicator-sysmonitor  
+  sudo apt-get update 
+  sudo apt-get install indicator-sysmonitor   
 ```
 
 编辑shell主题的css文件，比如我的shell主题是`Vimix-Beryl`：
@@ -61,3 +66,9 @@ sudo gedit /usr/share/themes/Vimix-Beryl/gnome-shell/gnome-shell.css
   text-shadow: none;
 }
 ```
+配置sublime
+
+```
+git clone https://github.com/dennisfaust/sublime2config.git
+```
+
