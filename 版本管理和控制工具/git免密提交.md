@@ -43,10 +43,7 @@
 
    ```shell
    [credential]
-   
-   
-   
-       helper = store
+   helper = store
    ```
 
 2. git push 代码
