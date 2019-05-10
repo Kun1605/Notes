@@ -343,11 +343,3 @@ git config credential.helper store
 git push origin master:master
 
 ```
-
-![1551195587764](/tmp/1551195587764.png)
-
-> ```
-> 然后就不需要每次都输入密码了～～～
-> ```
->
-> 
