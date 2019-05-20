@@ -208,5 +208,15 @@ sudo gedit /usr/share/themes/Vimix-Beryl/gnome-shell/gnome-shell.css
 
 ```
 git clone https://github.com/dennisfaust/sublime2config.git
+
+git clone https://github.com/Kun1605/SublimeText2-Config.git
+```
+
+安装flash插件
+
+```sh
+sudo apt-get install flashplugin-installer
+
+
 ```
 
