@@ -50,6 +50,22 @@ EPHEMERAL_SEQUENTIAL
 >
 > ###### 4、在分布式系统中，顺序号可以被用于为所有的事件进行全局排序，这样客户端可以通过顺序号推断事件的顺序
 
+## Znode
+
+Znode 包含了数据, 子节点引用, 访问权限等等
+
+[![http://www.miaomiaoqi.cn/images/bigdata/zookeeper/2.png](assets/687474703a2f2f7777772e6d69616f6d69616f71692e636e2f696d616765732f626967646174612f7a6f6f6b65657065722f322e706e67.png)](https://camo.githubusercontent.com/64e7a67a93d6883ceb89b66b4796ad4dbc9db6a1/687474703a2f2f7777772e6d69616f6d69616f71692e636e2f696d616765732f626967646174612f7a6f6f6b65657065722f322e706e67)
+
+**data:** Znode存储的数据信息。
+
+**ACL:** 记录Znode的访问权限，即哪些人或哪些IP可以访问本节点。
+
+**stat:** 包含Znode的各种元数据，比如事务ID、版本号、时间戳、大小等等。
+
+**child:** 当前节点的子节点引用，类似于二叉树的左孩子右孩子。
+
+这里需要注意一点，Zookeeper是为读多写少的场景所设计。Znode并不是用来存储大规模业务数据，而是用于存储少量的状态和配置信息，**每个节点的数据最大不能超过1MB**。
+
 ### 5. zookeeper命令行操作
 
 运行 zkCli.sh –server 进入命令行工具 [![zkc](assets/zkc.png)](https://github.com/jiachao23/StudyNote/blob/master/src/img/zkc.png)
@@ -97,6 +113,101 @@ WatchedEvent state:SyncConnected type:NodeDataChanged path:/zk
 ```
 [zk: 202.115.36.251:2181(CONNECTED) 5] rmr /zk
 ```
+
+create [-s][-e] path data acl
+
+在某个节点下创建节点, 默认是持久节点
+
+```
+  create /app1 "This is app1 server parent"
+  
+  create /app1/server01 "192.168.1.1,100"
+```
+
+-e是短暂节点, 客户端断开连接节点销毁
+
+```
+  create -e /app-e "aaaa"
+```
+
+-s是顺序节点, 会自动给节点加上序号
+
+```
+  [zk: 127.0.0.1:2220(CONNECTED) 5] create -s /test/aa 999
+  Created /test/aa0000000000
+  [zk: 127.0.0.1:2220(CONNECTED) 6] create -s /test/bb 999
+  Created /test/bb0000000001
+  [zk: 127.0.0.1:2220(CONNECTED) 7] create -s /test/aa 999
+  Created /test/aa0000000002
+  [zk: 127.0.0.1:2220(CONNECTED) 8] ls /test
+  [aa0000000000, aa0000000002, bb0000000001]
+```
+
+-s和-e结合使用就是临时顺序节点
+
+- get path [watch]
+
+  获取节点内容
+
+  ```
+    get /app1/server01
+  ```
+
+  开启watch功能
+
+  ```
+    get /app1 watch
+  ```
+
+  当其他机器修改/app1节点的内容时, 监听会收到通知, 但是只能监听一次, 监听器也分类型
+
+  ```
+    WATCHER::
+    
+    WatchedEvent state:SyncConnected type:NodeDataChanged path:/app1
+  ```
+
+- quit
+
+  客户端断开连接
+
+- set
+
+  更新节点内容
+
+  ```
+    set /app1 "xxx"
+  ```
+
+  会同步到其他机器上, 如果节点过多, 会有短暂延迟
+
+- delete
+
+  删除节点
+
+  ```
+  delete /app1
+  ```
+
+- exists
+
+  判断节点是否存在
+
+- getData
+
+  获得一个节点的数据
+
+- setData
+
+  设置一个节点的数据
+
+- getChildren
+
+  获取节点下的所有子节点
+
+这其中，exists，getData，getChildren属于读操作。Zookeeper客户端在请求读操作的时候，可以选择是否设置**Watch**。
+
+我们可以理解成是注册在特定Znode上的触发器。当这个Znode发生改变，也就是调用了create，delete，setData方法的时候，将会触发Znode上注册的对应事件，请求Watch的客户端会接收到**异步通知**。
 
 ## 6. zookeeper-api应用
 

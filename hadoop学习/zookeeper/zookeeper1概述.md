@@ -124,3 +124,41 @@ zkServer.sh start
 1、    jps（查看进程）
 2、    zkServer.sh status（查看集群状态，主从信息）    
 ```
+zookeeper 配置文件详解
+
+```
+# The number of milliseconds of each tick
+ # 心跳周期毫秒
+ tickTime=2000
+ # The number of ticks that the initial
+ # synchronization phase can take
+ # 初始化心跳个数
+ initLimit=10
+ # The number of ticks that can pass between
+ # sending a request and getting an acknowledgement
+ # 发送请求到响应的心跳个数
+ syncLimit=5
+ # the directory where the snapshot is stored.
+ # do not use /tmp for storage, /tmp here is just
+ # example sakes.
+ # 数据目录
+ dataDir=/Users/miaoqi/Documents/zookeeper-3.4.6/data
+ # the port at which the clients will connect
+ # 客户端端口
+ clientPort=2181
+ # the maximum number of client connections.
+ # increase this if you need to handle more clients
+ #maxClientCnxns=60
+ #
+ # Be sure to read the maintenance section of the
+ # administrator guide before turning on autopurge.
+ #
+ # http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance
+ #
+ # The number of snapshots to retain in dataDir
+ #autopurge.snapRetainCount=3
+ # Purge task interval in hours
+ # Set to "0" to disable auto purge feature
+ #autopurge.purgeInterval=1
+```
+
