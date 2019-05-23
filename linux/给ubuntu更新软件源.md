@@ -6,10 +6,6 @@
 
 ```shell
 cp /etc/apt/sources.list /etc/apt/sources.list.backup
-
-如果提示权限不够就输入下面两行，先进入到超级用户，再备份
-sudo -s
-cp /etc/apt/sources.list /etc/apt/sources.list.backup
 ```
 
  
