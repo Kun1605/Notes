@@ -216,3 +216,16 @@ sudo apt-get install flashplugin-installer
 
 ```
 
+禁用笔记本的触摸板
+
+```
+由于笔记本触摸板太多灵敏，影响使用，所以禁用掉触摸板。
+禁用触摸板命令：
+sudo rmmod psmouse
+启用触摸板命令
+sudo modprobe psmouse
+注意：启用之后可能会有几秒钟的延迟之后才生效。
+
+
+```
+
