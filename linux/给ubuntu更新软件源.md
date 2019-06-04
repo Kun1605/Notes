@@ -251,5 +251,15 @@ https://github.com/cstrap/monaco-font
    此时可能你还是无法创建热点，这是因为ubuntu自带的Nerwork Manager 会对热点的创建产生影响，把无线网卡设置为未托管即可。
    在/etc/NetworkManager/NetworkManager.conf中添加[keyfile]字段，添加内容为：unmanaged-devices=mac:00:23:cd:10:3e:0b ,mac地址改为自己wifi 设备的地址即可，此时应该就可以创建热点了。
    
+   
+   
+   "Code Fences": "Ctrl+Shift+F",  
+"Orderd List": "Ctrl+Alt+o",  
+"Unorders List": "Ctrl+Alt+u" 
+
+sudo apt-get install git dkms
+git clone https://github.com/lwfinger/rtl8188eu.git
+sudo dkms add ./rtl8188eu
+sudo dkms install 8188eu/1.0
 ```
 
