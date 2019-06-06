@@ -229,3 +229,22 @@ sudo modprobe psmouse
 
 ```
 
+安装苹果字体
+
+```
+https://github.com/cstrap/monaco-font
+```
+
+安装屏幕常亮
+
+```
+Gnome Global Application Menu
+unblank
+
+
+sudo apt-get install gtk2-engines-pixbuf
+
+
+sudo apt-get install fonts-droid-fallback ttf-wqy-zenhei ttf-wqy-microhei fonts-arphic-ukai fonts-arphic-uming
+```
+
