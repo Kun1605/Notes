@@ -235,9 +235,6 @@ sudo modprobe psmouse
 https://github.com/cstrap/monaco-font
 ```
 
-<<<<<<< HEAD
-安装屏幕常亮
-
 ```
 Gnome Global Application Menu
 unblank
@@ -247,7 +244,6 @@ sudo apt-get install gtk2-engines-pixbuf
 
 
 sudo apt-get install fonts-droid-fallback ttf-wqy-zenhei ttf-wqy-microhei fonts-arphic-ukai fonts-arphic-uming
-=======
 ```
     第一种方法是编译8188eu的驱动，这个在github上有，而且有很多解决办法，编译前需要安装相应的头文件和编译环境，如何你能这样解决的话，当然是最好了，如果这样没能解决，编译失败又解决不来的话，可以换第二种方法。
     第二种方法是编译带8188eu的hostapd来实现，具体实现步骤如下：
@@ -262,20 +258,21 @@ sudo apt-get install fonts-droid-fallback ttf-wqy-zenhei ttf-wqy-microhei fonts-
     4.安装
     sudo  make install
    此时可能你还是无法创建热点，这是因为ubuntu自带的Nerwork Manager 会对热点的创建产生影响，把无线网卡设置为未托管即可。
-   在/etc/NetworkManager/NetworkManager.conf中添加[keyfile]字段，添加内容为：unmanaged-devices=mac:00:23:cd:10:3e:0b ,mac地址改为自己wifi 设备的地址即可，此时应该就可以创建热点了。
 
    
 
-   "Code Fences": "Ctrl+Shift+F",  
-"Orderd List": "Ctrl+Alt+o",  
-"Unorders List": "Ctrl+Alt+u" 
 
+
+```sh
 sudo apt-get install git dkms
 git clone https://github.com/lwfinger/rtl8188eu.git
 sudo dkms add ./rtl8188eu
 sudo dkms install 8188eu/1.0
->>>>>>> origin/master
 ```
 
-
+配制typora
+```
+"Code Fences": "Ctrl+Shift+F",  
+"Orderd List": "Ctrl+Alt+o",  
+"Unorders List": "Ctrl+Alt+u" 
 ```
