@@ -73,8 +73,8 @@
 
 ```shell
 # allow user 'elasticsearch' mlockall
-elasticsearch soft memlock unlimited
-elasticsearch hard memlock unlimited
+yk soft memlock unlimited
+yk hard memlock unlimited
 * soft nofile 262144
 * hard nofile 262144
 
@@ -154,3 +154,29 @@ vm.max_map_count=262144
   - 浏览器访问：[http://192.168.2.172:5601](http://192.168.1.127:5601/)，可以看到 Kibana `Configure an index pattern` 界面
 
 - 访问 Dev Tools 工具，后面写 DSL 语句会常使用该功能：<http://192.168.2.172:5601/app/kibana#/dev_tools/console?_g=()>
+
+安装ik分词器
+
+```sh
+wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.3.2/elasticsearch-analysis-ik-6.3.2.zip
+```
+
+创建分词article文章
+
+```json
+PUT http://node0:9200/banji/
+{
+"mappings": {
+  "article": {
+    "properties": {
+      "content": {"type": "text","analyzer": "ik_max_word", "search_analyzer": "ik_max_word"},
+      "create_time": {"type": "date"},
+      "doc_id": { "type": "long"},
+      "title": {"type": "text","analyzer": "ik_max_word","search_analyzer": "ik_max_word"},
+      "update_time": { "type": "date"}
+    }
+  }
+}
+}
+```
+
