@@ -6,7 +6,7 @@
 > - 任意一台客户端都能实时感知到主节点服务器的上下线 [![zk1](assets/zk1.png)](https://github.com/jiachao23/StudyNote/blob/master/src/img/zk1.png)
 > - A、客户端实现
 
-```
+```java
 public class AppClient {
     private String groupNode = "sgroup";
     private ZooKeeper zk;
@@ -73,7 +73,7 @@ public class AppClient {
 
 > - B、服务器端实现
 
-```
+```java
 public class AppServer {
 private String groupNode = "sgroup";
 private String subNode = "sub";
@@ -121,7 +121,7 @@ public static void main(String[] args) throws Exception {
 
 > - 客户端A
 
-```
+```java
 public class DistributedClient {
     // 超时时间
     private static final int SESSION_TIMEOUT = 5000;
@@ -226,7 +226,7 @@ public class DistributedClient {
 
 > - 分布式多进程模式实现：
 
-```
+```java
 public class DistributedClientMy {
 // 超时时间
 private static final int SESSION_TIMEOUT = 5000;
