@@ -14,7 +14,7 @@ cp /etc/apt/sources.list /etc/apt/sources.list.backup
 
 　　**打开sources.list (这就是存放更新源的文件)**
 
-```shell
+```
 gedit /etc/apt/sources.list
 ```
 
@@ -276,3 +276,17 @@ sudo dkms install 8188eu/1.0
 "Orderd List": "Ctrl+Alt+o",  
 "Unorders List": "Ctrl+Alt+u" 
 ```
+安装chrome浏览器
+
+```
+在使用ibus时，默认的简繁切换快捷键是Ctrl+Shift+F，该快捷键与idea、eclipse等ide中默认的全局搜索快捷键冲突。导致无法全局搜索。
+ 但在gentoo下，ibus并未提供修改快捷键的程序。ibus-setup与gnome3 自带的设置界面仅能修改切换输入源的快捷键。
+ 一般人用不到简繁切换的快捷键，所以这里想办法将该快捷键禁掉。
+ 在gnome下，ibus安装时默认的use里不包含gconf，这里修改/etc/portage/package.use文件，或该目录下的文件，增加 app-i18n/ibus gconf 配置项，并重装ibus。
+ 之后便可通过gnome3的dconf editor来禁用快捷键。位置在Desktop >> ibus >> general >> hotkey下面。
+ 修改 disable-unconditional项的值为['Ctrl+Shift_F']，并保存即可禁用ibus的简繁切换快捷键。
+```
+
+ 
+
+ 

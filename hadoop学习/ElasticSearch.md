@@ -163,20 +163,40 @@ wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.3.2
 
 创建分词article文章
 
+> PUT http://node0:9200/banji/
+
 ```json
-PUT http://node0:9200/banji/
 {
-"mappings": {
-  "article": {
-    "properties": {
-      "content": {"type": "text","analyzer": "ik_max_word", "search_analyzer": "ik_max_word"},
-      "create_time": {"type": "date"},
-      "doc_id": { "type": "long"},
-      "title": {"type": "text","analyzer": "ik_max_word","search_analyzer": "ik_max_word"},
-      "update_time": { "type": "date"}
+  "mappings": {
+    "article": {
+      "properties": {
+        "doc_id": {
+          "type": "long"
+        },
+        "title": {
+          "type": "text",
+          "analyzer": "ik_smart"
+        },
+        "content": {
+          "type": "text",
+          "analyzer": "ik_smart"
+        },
+        "contentNoTag": {
+          "type": "text",
+          "analyzer": "ik_smart"
+        },
+        "image": {
+          "type": "text"
+        },
+        "create_time": {
+          "type": "date"
+        },
+        "update_time": {
+          "type": "date"
+        }
+      }
     }
   }
-}
 }
 ```
 

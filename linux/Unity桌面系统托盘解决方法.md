@@ -14,7 +14,7 @@ sudo apt-get upgrade
 而删除 fcitx-ui-qimpanel，只保留 fcitx-ui-classic就可以解决问题了，打开终端执行：
 
 ```shell
-sudo apt-get remove fcitx-ui-qimpanel
+sudo apt-get remove fcitx-ui-qimpanel fcitx-ui-classic
 ```
 
 注销或重启系统即可。
