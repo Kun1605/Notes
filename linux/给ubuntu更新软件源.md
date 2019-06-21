@@ -310,4 +310,12 @@ $ sudo update-pepperflashplugin-nonfree --install
 $ sudo update-pepperflashplugin-nonfree --status
 ```
 
+安装系统监控器
+
+```
+sudo add-apt-repository ppa:fossfreedom/indicator-sysmonitor  
+sudo apt-get update
+sudo apt-get install indicator-sysmonitor 
+```
+
  
