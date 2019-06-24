@@ -49,7 +49,7 @@ sudo apt-key fingerprint 0EBFCD88
 添加docker官方仓库
 然后，我们需要向 source.list 中添加 Docker CE 软件源：
 
-```
+```shell
 sudo add-apt-repository "deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/debian  wheezy stable"
 //官方源
 // sudo add-apt-repository  "deb [arch=amd64] https://download.docker.com/linux/debian wheezy stable"
@@ -89,6 +89,7 @@ sudo docker run hello-world
 修改修改daemon配置文件/etc/docker/daemon.json来使用加速器(下面是4个命令，分别单独执行)
 注意 这里的https://jxus37ad.mirror.aliyuncs.com是申请者的加速器地址，在此仅仅用于演示，而使用者要个根据自己的使用的情况填写自己申请的加速器地址。
 
+```json
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
@@ -97,15 +98,22 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
 EOF
 sudo systemctl daemon-reload
 sudo systemctl restart docker
+```
+
+
 方式二：使用docker-cn提供的镜像源
 
 编辑/etc/docker/daemon.json文件，并输入docker-cn镜像源地址
 sudo nano /etc/docker/daemon.json
 输入以下内容
 
+```json
 {
   "registry-mirrors": ["https://registry.docker-cn.com"]
 }
+```
+
+
 重启docker服务
 sudo service docker restart
 禁止开机自启
