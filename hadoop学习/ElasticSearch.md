@@ -165,18 +165,43 @@ wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.3.2
 
 ```json
 PUT http://node0:9200/banji/
+
+
+
+
+
 {
-"mappings": {
-  "article": {
-    "properties": {
-      "content": {"type": "text","analyzer": "ik_max_word", "search_analyzer": "ik_max_word"},
-      "create_time": {"type": "date"},
-      "doc_id": { "type": "long"},
-      "title": {"type": "text","analyzer": "ik_max_word","search_analyzer": "ik_max_word"},
-      "update_time": { "type": "date"}
+  "mappings": {
+    "article": {
+      "properties": {
+        "doc_id": {
+          "type": "long"
+        },
+        "title": {
+          "type": "text",
+          "analyzer": "ik_max_word"
+        },
+        "img": {
+          "type": "text"
+        },
+        "content": {
+          "type": "text",
+          "analyzer": "ik_max_word"
+        },
+        "author": {
+          "type": "text",
+          "analyzer": "ik_max_word"
+        },
+        "subtitle": {
+          "type": "text",
+          "analyzer": "ik_max_word"
+        },
+        "date": {
+          "type": "date"
+        }
+      }
     }
   }
-}
 }
 ```
 
