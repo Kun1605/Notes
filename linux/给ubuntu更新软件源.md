@@ -286,7 +286,6 @@ sudo dkms install 8188eu/1.0
  之后便可通过gnome3的dconf editor来禁用快捷键。位置在Desktop >> ibus >> general >> hotkey下面。
  修改 disable-unconditional项的值为['Ctrl+Shift_F']，并保存即可禁用ibus的简繁切换快捷键。
  
->>>>>安装ibus搜狗拼音
 搜狗词库下载地址：http://hslinuxextra.googlecode.com/files/android.7z
 解压下载的文件,你会得到一个叫android.db的文件，大约在100M左右。
 
