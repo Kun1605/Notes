@@ -212,8 +212,6 @@ git clone https://github.com/Kun1605/SublimeText2-Config.git
 
 ```sh
 sudo apt-get install flashplugin-installer
-
-
 ```
 
 禁用笔记本的触摸板

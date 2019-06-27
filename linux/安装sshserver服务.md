@@ -97,7 +97,10 @@ vim /etc/ssh/sshd_config
 找到
 
 ```shell
-# Authentication:LoginGraceTime 120PermitRootLogin prohibit-passwordStrictModes yes
+# Authentication:
+LoginGraceTime 120
+PermitRootLogin prohibit-password
+StrictModes yes
 ```
 
 改成
